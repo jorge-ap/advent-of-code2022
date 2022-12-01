@@ -1,5 +1,6 @@
 // Personal data set
-const inputCase = `5118
+const inputCase = `
+5118
 5554
 4186
 4729
@@ -2235,10 +2236,12 @@ const inputCase = `5118
 3734
 1957
 1360
-1678`;
+1678
+`;
 
 // Provided test case
-const testCase = `1000
+const testCase = `
+1000
 2000
 3000
 
@@ -2251,40 +2254,18 @@ const testCase = `1000
 8000
 9000
 
-10000`;
-
-// This can vary
-const parseInput = (input) => input.split("\n").map(Number);
+10000
+`;
 
 // Solution
 const resolve = (input) => {
-  const finalArray = [[]]
-  let currentArray = 0
-  const separated = input.reduce((acc, curr) => {
-    if (curr === 0) {
-      currentArray++
-      acc.push([])
-    } else {
-      acc[currentArray].push(curr)
-    }
-    return acc
-  }, finalArray);
-
-  return separated.map((arr) => {
-    return arr.reduce((acc, curr) => {
-      return acc + curr
-    }, 0)
-    }).reduce((acc, curr) => {
-      return Math.max(acc, curr)
-    }, 0)
+  return Math.max(...input.split('\n\n').map((group) => group.split('\n')).map((elf) => elf.reduce((acc, curr) => acc + Number(curr), 0)));
 };
 
-const parsedTest = parseInput(testCase);
-const test = resolve(parsedTest);
+const test = resolve(testCase);
 
 console.assert(test === 24000, "Test case failed");
 
-const parsedInput = parseInput(inputCase);
-const output = resolve(parsedInput);
+const output = resolve(inputCase);
 
 console.log(`The solution is ${output}`);
