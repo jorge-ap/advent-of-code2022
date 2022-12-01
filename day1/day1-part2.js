@@ -2253,48 +2253,25 @@ const testCase = `1000
 
 10000`;
 
-// This can vary
-const parseInput = (input) => input.split("\n").map(Number);
-
 // Solution
 const resolve = (input) => {
-  const finalArray = [[]];
-  let currentArray = 0;
-  const separated = input.reduce((acc, curr) => {
-    if (curr === 0) {
-      currentArray++;
-      acc.push([]);
-    } else {
-      acc[currentArray].push(curr);
-    }
-    return acc;
-  }, finalArray);
-
-  return separated
-    .map((arr) => {
-      return arr.reduce((acc, curr) => {
-        return acc + curr;
-      }, 0);
-    })
-    .reduce(
-      (acc, curr) => {
-        if (curr > acc[0]) {
-          acc[0] = curr;
-          acc.sort((a, b) => a - b);
-        }
-        return acc;
-      },
-      [0, 0, 0]
-    ).reduce((acc, curr) => acc + curr, 0);
-
+  return input.split("\n\n").map((group) => group.split("\n")).reduce(
+    (acc, elf) => {
+      const sum = elf.reduce((accG, currG) => accG + Number(currG), 0)
+      if (sum > acc[0]) {
+        acc[0] = sum
+        acc.sort((a, b) => a - b)
+      }
+      return acc
+    },
+    [0, 0, 0]
+  ).reduce((acc, curr) => acc + curr, 0);
 };
 
-const parsedTest = parseInput(testCase);
-const test = resolve(parsedTest);
+const test = resolve(testCase);
 
 console.assert(test === 45000, "Test case failed");
 
-const parsedInput = parseInput(inputCase);
-const output = resolve(parsedInput);
+const output = resolve(inputCase);
 
 console.log(`The solution is ${output}`);
