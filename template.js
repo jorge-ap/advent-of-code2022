@@ -6,21 +6,15 @@ const inputCase = `
 const testCase = `
 `
 
-
-// This can vary
-const parseInput = (input) => input.split('\n').map(Number);
-
 // Solution
 const resolve = (input) => {
 
 }
 
-const parsedTest = parseInput(testCase);
-const test = resolve(parsedTest);
+const test = resolve(testCase);
 
 console.assert(test === 'expectedSolution', 'Test case failed');
 
-const parsedInput = parseInput(inputCase);
-const output = resolve(parsedInput);
+const output = resolve(inputCase);
 
 console.log(`The solution is ${output}`);
