@@ -555,8 +555,12 @@ const parseData = (input) => {
         return acc;
       },
       [[], []]
-    ).slice(0, -1);
-    return { positions: result.map(row => row.reverse()), instructions: instructions[1].split("\n") };
+    )
+    .slice(0, -1);
+  return {
+    positions: result.map((row) => row.reverse()),
+    instructions: instructions[1].split("\n"),
+  };
 };
 
 // Solution
@@ -564,24 +568,28 @@ const resolve = (input) => {
   const { positions, instructions } = parseData(input);
   instructions.map((instruction) => {
     const [_, move, from, to] = instruction.split(/move|from|to/);
+    const movedItems = [];
     for (let i = 1; i <= parseInt(move); i++) {
       const disk = positions[parseInt(from)].pop();
+      movedItems.push(disk);
+    }
+    while (movedItems.length) {
+      const disk = movedItems.pop();
       positions[parseInt(to)].push(disk);
     }
-  })
-  console.log(positions);
+  });
   return positions.reduce((acc, current) => {
     if (current.length !== 0) {
       const last = current.pop();
       return acc + last;
     }
     return acc;
-  }, '');
+  }, "");
 };
 
 const test = resolve(testCase);
 
-console.assert(test === "CMZ", "Test case failed");
+console.assert(test === "MCD", "Test case failed");
 
 const output = resolve(inputCase);
 
