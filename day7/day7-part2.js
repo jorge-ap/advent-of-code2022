@@ -1127,12 +1127,10 @@ const resolve = (data) => {
   return resolveRec(data.files[0], spaceToFree).sort((a, b) => a - b)[0];
 };
 
-const data = parseData(testCase);
-const test = resolve(data);
+const test = resolve(parseData(testCase));
 
 console.assert(test === 24933642, "Test case failed");
 
-const dataInput = parseData(inputCase);
-const output = resolve(dataInput);
+const output = resolve(parseData(inputCase));
 
 console.log(`The solution is ${output}`);

@@ -1117,13 +1117,10 @@ const resolve = (data) => {
   return sizesChildren;
 }
 
-const data = parseData(testCase);
-const test = resolve(data);
-
+const test = resolve(parseData(testCase));
 
 console.assert(test === 95437, "Test case failed");
 
-const dataInput = parseData(inputCase);
-const output = resolve(dataInput);
+const output = resolve(parseData(inputCase));
 
 console.log(`The solution is ${output}`);
