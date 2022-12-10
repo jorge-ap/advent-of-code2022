@@ -308,7 +308,7 @@ const resolve = (input) => {
           } else {
             acc.result[acc.index].push(".");
           }
-          acc = { ...acc, cycles: acc.cycles + 1, total: acc.total + 1 };
+          acc = { ...acc, cycles: acc.cycles + 1 };
           if (acc.cycles === 40) {
             acc.cycles = 0;
             acc.index = acc.index + 1;
@@ -322,7 +322,7 @@ const resolve = (input) => {
           } else {
             acc.result[acc.index].push(".");
           }
-          acc = { ...acc, total: acc.total + 1, cycles: acc.cycles + 1 };
+          acc = { ...acc, cycles: acc.cycles + 1 };
           if (acc.cycles === 40) {
             acc.cycles = 0;
             acc.index = acc.index + 1;
@@ -336,7 +336,6 @@ const resolve = (input) => {
             ...acc,
             X: acc.X + transformedValue,
             cycles: acc.cycles + 1,
-            total: acc.total + 1,
             sprite: [
               acc.X + transformedValue - 1,
               acc.X + transformedValue + 1,
@@ -353,7 +352,6 @@ const resolve = (input) => {
         cycles: 0,
         X: 1,
         index: 0,
-        total: 0,
         result: [[], [], [], [], [], []],
         sprite: [0, 2],
       }

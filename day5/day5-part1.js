@@ -569,7 +569,6 @@ const resolve = (input) => {
       positions[parseInt(to)].push(disk);
     }
   })
-  console.log(positions);
   return positions.reduce((acc, current) => {
     if (current.length !== 0) {
       const last = current.pop();
