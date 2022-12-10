@@ -366,5 +366,3 @@ console.log(test1);
 
 const output = resolve(inputCase);
 console.log(output);
-
-console.log(`The solution is ${output}`);
