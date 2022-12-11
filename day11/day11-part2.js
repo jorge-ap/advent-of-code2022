@@ -129,19 +129,24 @@ const parseData = (input) => {
 const resolve = (input) => {
   const monkeys = parseData(input);
   const evaluatedItems = Array.from({ length: monkeys.length }, () => 0);
-  for (let i = 0; i < 1000; i++) {
+  // modular arithmetic -> (a * b) % x = ((a % x) * (b % x)) % x
+  // https://en.wikipedia.org/wiki/Modular_arithmetic
+  // https://www.youtube.com/watch?v=F4MCuPZDKog&t=1062s&ab_channel=hyper-neutrino
+  const x = monkeys.reduce((acc, monkey) => acc * monkey.divisibleBy, 1);
+  for (let i = 0; i < 10000; i++) {
     for (let j = 0; j < monkeys.length; j++) {
       const { items, op, divisibleBy, ifTrue, ifFalse } = monkeys[j];
       items.map((item) => {
         let newItem;
-        newItem = item
-        const secondOp = op[2] === "old" ? newItem : op[2];
+        newItem = parseInt(item);
+        const secondOp = op[2] === "old" ? newItem : parseInt(op[2]);
         if (op[1] === "*") {
-          newItem = operationsBigNumbers.multiply(newItem, secondOp);
+          newItem = newItem * secondOp;
         } else if (op[1] === "+") {
-          newItem = operationsBigNumbers.add(newItem, secondOp);
+          newItem = newItem + secondOp;
         }
-        if (operationsBigNumbers.mod(newItem, divisibleBy) === 0) {
+        newItem = newItem % x;
+        if (newItem % divisibleBy === 0) {
           monkeys[ifTrue].items.push(newItem);
         } else {
           monkeys[ifFalse].items.push(newItem);
@@ -161,6 +166,6 @@ console.log(test);
 
 console.assert(test === 2713310158, "Test case failed");
 
-// const output = resolve(inputCase);
+const output = resolve(inputCase);
 
-// console.log(`The solution is ${output}`);
+console.log(`The solution is ${output}`);
